@@ -1,188 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine? ❤️</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #ffebee;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
-
-        #questionContainer {
-            position: relative;
-            width: 400px;
-            height: 450px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* This area keeps the buttons contained */
-        .buttons-box {
-            position: relative;
-            width: 100%;
-            height: 250px;
-            margin-top: 20px;
-        }
-
-        button {
-            padding: 12px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 12px;
-            border: none;
-        }
-
-        #yesBtn {
-            background-color: #ff4081;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        #noBtn {
-            background-color: #9e9e9e;
-            color: white;
-            position: absolute;
-            /* Start position */
-            left: 220px;
-            top: 0;
-            transition: left 0.15s ease-out, top 0.15s ease-out, transform 0.2s;
-            z-index: 10;
-        }
-
-        /* Heart Loader */
-        #heartLoader {
-            display: none;
-            position: relative;
-            width: 60px;
-            height: 55px;
-            animation: pulse 0.6s linear infinite alternate;
-        }
-
-        #heartLoader:before, #heartLoader:after {
-            position: absolute;
-            content: "";
-            left: 30px;
-            top: 0;
-            width: 30px;
-            height: 50px;
-            background: #ff4081;
-            border-radius: 50px 50px 0 0;
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
-        }
-
-        #heartLoader:after {
-            left: 0;
-            transform: rotate(45deg);
-            transform-origin: 100% 100%;
-        }
-
-        @keyframes pulse { to { transform: scale(1.3); } }
-
-        #resultContainer {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #resultContainer img {
-            width: 250px;
-            border-radius: 15px;
-            margin-top: 15px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine? ❤️</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #ffebee;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+#questionContainer {
+    position: relative;
+    width: 400px;
+    height: 550px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+#gifContainer {
+    width: 90%;
+    height: 250px;
+    margin-top: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+#cuteGif {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#questionText {
+    margin: 20px 0 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+.buttons-box {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    margin-top: 10px;
+}
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    border: none;
+    transition: transform 0.2s ease-out, left 0.15s ease-out, top 0.15s ease-out;
+}
+#yesBtn {
+    background-color: #ff4081;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+#noBtn {
+    background-color: #9e9e9e;
+    color: white;
+    position: absolute;
+    left: 220px;
+    top: 0;
+    z-index: 10;
+}
+#heartLoader {
+    display: none;
+    position: absolute;
+    width: 60px;
+    height: 55px;
+    animation: pulse 0.6s linear infinite alternate;
+    z-index: 20;
+}
+#heartLoader:before, #heartLoader:after {
+    position: absolute;
+    content: "";
+    left: 30px;
+    top: 0;
+    width: 30px;
+    height: 50px;
+    background: #ff4081;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+#heartLoader:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+@keyframes pulse { to { transform: scale(1.3); } }
+#resultContainer {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    align-items: center;
+}
+#resultContainer img {
+    width: 250px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+</style>
 </head>
 <body>
 
-    <div id="questionContainer">
-        <div id="mainContent">
-            <h1>Will you be my Valentine?</h1>
-            <div class="buttons-box" id="area">
-                <button id="yesBtn">Yes</button>
-                <button id="noBtn">No</button>
-            </div>
-        </div>
-
-        <div id="heartLoader"></div>
-
-        <div id="resultContainer">
-            <h1>Yay! I knew it! ❤️</h1>
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHByZ3BqZzR3eHByZ3BqZzR3eHByZ3BqZzR3eHByZ3BqZzR3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk77/giphy.gif" alt="Cute GIF">
-        </div>
+<div id="questionContainer">
+    <!-- GIF rectangle -->
+    <div id="gifContainer">
+        <img id="cuteGif" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Cute GIF">
     </div>
 
-    <script>
-        const noBtn = document.getElementById("noBtn");
-        const yesBtn = document.getElementById("yesBtn");
-        const area = document.getElementById("area");
-        const heartLoader = document.getElementById("heartLoader");
-        const resultContainer = document.getElementById("resultContainer");
-        const mainContent = document.getElementById("mainContent");
+    <!-- Question -->
+    <div id="questionText">Will you be my Valentine?</div>
 
-        let currentScale = 1;
+    <!-- Buttons -->
+    <div class="buttons-box" id="area">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
 
-        // 1. FIXED RUNAWAY LOGIC
-        // We move it relative to the "area" div so it stays in the box
-        noBtn.addEventListener("mouseover", () => {
-            const maxX = area.clientWidth - noBtn.offsetWidth;
-            const maxY = area.clientHeight - noBtn.offsetHeight;
-            
-            const newX = Math.floor(Math.random() * maxX);
-            const newY = Math.floor(Math.random() * maxY);
-            
-            noBtn.style.left = `${newX}px`;
-            noBtn.style.top = `${newY}px`;
+    <div id="heartLoader"></div>
+
+    <div id="resultContainer">
+        <h1>Yay! I knew it! ❤️</h1>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueHByZ3BqZzR3eHByZ3BqZzR3eHByZ3BqZzR3eHByZ3BqZzR3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk77/giphy.gif" alt="Cute GIF">
+    </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const area = document.getElementById("area");
+const heartLoader = document.getElementById("heartLoader");
+const resultContainer = document.getElementById("resultContainer");
+const questionText = document.getElementById("questionText");
+const gifContainer = document.getElementById("gifContainer");
+
+let noScale = 1;
+
+// === AUDIO CONTEXT ===
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playBoop(freq = 880, duration = 0.08, volume = 0.12) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = freq;
+    gain.gain.value = volume;
+    gain.connect(audioCtx.destination);
+    osc.connect(gain);
+    gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+}
+
+// === NO BUTTON LOGIC ===
+function shrinkNoGrowYes() {
+    audioCtx.resume();
+    playBoop();
+    noScale -= 0.1;
+    if (noScale < 0.05) noScale = 0.05;
+    noBtn.style.transform = `scale(${noScale})`;
+    const yesScale = 1 + (1 - noScale);
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    const maxX = area.clientWidth - noBtn.offsetWidth;
+    const maxY = area.clientHeight - noBtn.offsetHeight;
+    noBtn.style.left = `${Math.floor(Math.random() * maxX)}px`;
+    noBtn.style.top = `${Math.floor(Math.random() * maxY)}px`;
+}
+
+noBtn.addEventListener("mouseover", shrinkNoGrowYes);
+noBtn.addEventListener("click", shrinkNoGrowYes);
+
+// === HEART BOUNCE LOGIC ===
+function startHeartBounce() {
+    heartLoader.style.display = "block";
+    const container = document.getElementById("questionContainer");
+    const maxX = container.clientWidth - heartLoader.offsetWidth;
+    const maxY = container.clientHeight - heartLoader.offsetHeight;
+
+    let dx = 2 + Math.random() * 2;
+    let dy = 2 + Math.random() * 2;
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
+
+    const interval = setInterval(() => {
+        x += dx;
+        y += dy;
+        if (x <= 0 || x >= maxX) dx *= -1;
+        if (y <= 0 || y >= maxY) dy *= -1;
+        heartLoader.style.left = x + "px";
+        heartLoader.style.top = y + "px";
+    }, 16);
+
+    return interval;
+}
+
+// === CELEBRATORY SOUND ===
+function playYaySound() {
+    const notes = [523, 659, 784, 1046]; // C5, E5, G5, C6
+    let delay = 0;
+    notes.forEach(n => {
+        setTimeout(() => playBoop(n, 0.2, 0.15), delay);
+        delay += 200;
+    });
+}
+
+// === YES BUTTON LOGIC ===
+yesBtn.addEventListener("click", () => {
+    audioCtx.resume();
+    playBoop(1046, 0.1, 0.15);
+
+    // Hide GIF, question text, and buttons
+    gifContainer.style.display = "none";
+    questionText.style.display = "none";
+    area.style.display = "none";
+
+    // Start bouncing heart
+    const bounceInterval = startHeartBounce();
+
+    setTimeout(() => {
+        clearInterval(bounceInterval);
+        heartLoader.style.display = "none";
+        resultContainer.style.display = "flex";
+
+        // Confetti + Yay sound
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#ff4081', '#ff80ab', '#ffffff']
         });
+        playYaySound();
+    }, 3000);
+});
+</script>
 
-        // 2. FIXED SHRINKING LOGIC
-        noBtn.addEventListener("click", (e) => {
-            currentScale -= 0.2; // Shrink by 20%
-            if (currentScale < 0.3) currentScale = 0.3; // Don't let it vanish
-            
-            noBtn.style.transform = `scale(${currentScale})`;
-            
-            // After clicking, move it one more time so they can't click it again easily
-            const maxX = area.clientWidth - noBtn.offsetWidth;
-            const maxY = area.clientHeight - noBtn.offsetHeight;
-            noBtn.style.left = `${Math.floor(Math.random() * maxX)}px`;
-            noBtn.style.top = `${Math.floor(Math.random() * maxY)}px`;
-        });
-
-        // 3. YES LOGIC + CONFETTI
-        yesBtn.addEventListener("click", () => {
-            mainContent.style.display = "none";
-            heartLoader.style.display = "block";
-
-            setTimeout(() => {
-                heartLoader.style.display = "none";
-                resultContainer.style.display = "flex";
-                
-                confetti({
-                    particleCount: 150,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#ff4081', '#ff80ab', '#ffffff']
-                });
-            }, 3000);
-        });
-    </script>
 </body>
 </html>
